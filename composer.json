@@ -1,0 +1,49 @@
+{
+    "name": "fanma/hyperf-easywechat6",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "hyperf",
+        "easywechat"
+    ],
+    "description": "hyperf easywechat6",
+    "autoload": {
+        "psr-4": {
+            "Fanma\\HyperfWechat\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HyperfTest\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=8.0.2",
+        "w7corp/easywechat": "^6.17.5"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14|^3.0",
+        "mockery/mockery": "^1.0",
+        "phpstan/phpstan": "^0.12",
+        "phpunit/phpunit": ">=7.0",
+        "swoole/ide-helper": "^4.5",
+        "hyperf/context": "~2.2.0|^3.0"
+    },
+    "conflict": {
+        "w7corp/easywechat": "<6.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit -c phpunit.xml --colors=always",
+        "analyse": "phpstan analyse --memory-limit 1024M -l 0 ./src",
+        "cs-fix": "php-cs-fixer fix $1"
+    },
+    "extra": {
+        "hyperf": {
+            "config": "Fanma\\HyperfWechat\\ConfigProvider"
+        }
+    }
+}
