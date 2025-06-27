@@ -1,6 +1,3 @@
-# Notice
-- v1.0.7(含)版本上兼容hyperf2和3版本。
-- easywechat6用symfony/http-client相关组件，替换了之前4，5等版本的Guzzle请求组件，Symfony Http Client在常驻内存的服务中使用时，[HttpClient会因为多个协程共用而报错](https://github.com/swoole/swoole-src/issues/5008#issuecomment-1465458380)。 pengxuxu/hyperf-easywechat6包使用hyperf的ClassMap替换了InteractWithHttpClient中的HttpClient对象实例，使得不同协程为不同的请求实例，同一协程上下文中获取到的为同一请求实例。
 
 ```php
 <?php
@@ -32,7 +29,7 @@ class IndexController extends AbstractController
 在swoole>=4.7.0且开启native curl修改常量SWOOLE_HOOK_ALL，共用一个HttpClient情况下，报错信息：
 PHP Fatal error:  Uncaught Swoole\Error: cURL is executing, cannot be operated in /data/project/hyperf-skeleton/vendor/symfony/http-client/Response/CurlResponse.php:366
 ```
-- pengxuxu/hyperf-easywechat6包用hyperf的容器获得Hyperf\HttpServer\Contract\RequestInterface对应的Hyperf\HttpServer\Request，替换了easywechat6中的同样基于PSR-7规范request；获得Psr\SimpleCache\CacheInterface对应的缓存类，替换easywechat6中同样基于PSR-16规范的cache。
+- fanma/hyperf-easywechat6包用hyperf的容器获得Hyperf\HttpServer\Contract\RequestInterface对应的Hyperf\HttpServer\Request，替换了easywechat6中的同样基于PSR-7规范request；获得Psr\SimpleCache\CacheInterface对应的缓存类，替换easywechat6中同样基于PSR-16规范的cache。
 - 在替换request前，判断当前协程是否存在服务端请求，避免了在hyperf的定时任务、命令行等，使用外观获取对应Application时出现的错误，比如在定时任务中只需要获取请求getClient()发送模板消息请求等场景。
   ```php
   $app = new Application($config);
@@ -57,7 +54,7 @@ PHP Fatal error:  Uncaught Swoole\Error: cURL is executing, cannot be operated i
 ## 安装
 
 ~~~shell script
-composer require pengxuxu/hyperf-easywechat6 
+composer require fanma/hyperf-easywechat6 
 ~~~
 
 ## 配置
@@ -65,7 +62,7 @@ composer require pengxuxu/hyperf-easywechat6
 1. 发布配置文件
 
 ~~~shell script
-php ./bin/hyperf.php vendor:publish pengxuxu/hyperf-easywechat6
+php ./bin/hyperf.php vendor:publish fanma/hyperf-easywechat6
 ~~~
 
 2. 修改应用根目录下的 `config/autoload/wechat.php` 中对应的参数即可。
